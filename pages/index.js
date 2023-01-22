@@ -6,7 +6,7 @@ import { Product, FooterBanner, HeroBanner } from "../components";
 const Home = ({ products, bannerData }) => {
   return (
     <>
-      <HeroBanner />
+      <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
 	  
 
       <div className="products-heading">
@@ -29,7 +29,7 @@ export const getServerSideProps = async () => {
 	const bannerData = await client.fetch(bannerQuery);
 
 	return {
-		props: {products, bannerData }
+		props: { products, bannerData }
 	}
 }
 
