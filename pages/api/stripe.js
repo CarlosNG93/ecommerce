@@ -1,9 +1,12 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+import Stripe from 'stripe';
+
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-
-	console.log(req.body.cartItems);
 
     try {
 
@@ -13,10 +16,10 @@ export default async function handler(req, res) {
 		payment_method_types: ['card'],
 		billing_address_collection: 'auto',
 		shipping_options: [
-			{ shipping_rate: 'shr_1MTj9FFLJPae28Duy1DFOJ1A'},
-			{ shipping_rate: 'shr_1MTjAcFLJPae28DuzI1Qo0og'},
+			{ shipping_rate: 'shr_1MTk5EFLJPae28Duc7XxR7rf'},
+		
 		],
-		line_items:req.body.cartItems.map((item) => {
+		line_items:req.body.map((item) => {
 			const img = item.image[0].asset._ref;
 			const newImage = img.replace('image-', 'https://cdn.sanity.io/images/zszhcm3h/production/').replace('-webp', '.webp')
 
@@ -31,7 +34,7 @@ export default async function handler(req, res) {
 				},
 				adjustable_quantity: {
 					enabled: true,
-					minnum: 1,
+					minimum: 1,
 				},
 				quantity: item.quantity,
 			}
