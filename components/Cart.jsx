@@ -85,7 +85,7 @@ const Cart = () => {
              			 				</span>
               							<span 
 											className="num" 
-											onClick=""
+											
 										>
                 							{item.quantity}
               							</span>
